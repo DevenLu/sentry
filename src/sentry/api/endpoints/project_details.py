@@ -244,6 +244,7 @@ class ProjectDetailsEndpoint(ProjectEndpoint):
 
         old_team_id = None
         if result.get('team'):
+            # TODO(jess): fix in another pr to add team
             team_list = [
                 t for t in Team.objects.get_for_user(
                     organization=project.organization,
