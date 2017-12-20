@@ -514,6 +514,7 @@ class ProjectView(TeamView):
             active_project = None
 
         if active_project:
+            # TODO(jess): fix
             active_team = active_project.team
         else:
             active_team = None

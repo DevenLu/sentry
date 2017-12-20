@@ -71,6 +71,7 @@ def create_project_delete_log(entry):
     delete_log.organization_name = entry.organization.name
     delete_log.organization_slug = entry.organization.slug
 
+    # TODO(jess): update these to use many to many
     team = project.team
     delete_log.team_id = team.id
     delete_log.team_name = team.name

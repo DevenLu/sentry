@@ -138,7 +138,8 @@ class ActivityEmail(object):
         group = self.group
 
         headers = {
-            'X-Sentry-Team': project.team.slug,
+            # TODO(jess): is this ok to just delete? or should we replace with org or something?
+            # 'X-Sentry-Team': project.team.slug,
             'X-Sentry-Project': project.slug,
         }
 
