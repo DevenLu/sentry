@@ -42,7 +42,6 @@ class RemoveProjectTest(TestCase):
         resp = self.client.get(self.path)
         assert resp.status_code == 200
         self.assertTemplateUsed(resp, 'sentry/projects/remove.html')
-        assert resp.context['team'] == self.team
         assert resp.context['project'] == self.project
 
     def test_deletion_flow(self):
