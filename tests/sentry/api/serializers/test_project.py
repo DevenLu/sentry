@@ -34,10 +34,15 @@ class ProjectWithTeamSerializerTest(TestCase):
 
         result = serialize(project, user, ProjectWithTeamSerializer())
 
+        # remove for mysql tests
+        result['team'].pop('dateCreated')
+        serialized_team = serialize(team, user)
+        serialized_team.pop('dateCreated')
+
         assert result['slug'] == project.slug
         assert result['name'] == project.name
         assert result['id'] == six.text_type(project.id)
-        assert result['team'] == serialize(team, user)
+        assert result['team'] == serialized_team
 
 
 class ProjectWithOrganizationSerializerTest(TestCase):
