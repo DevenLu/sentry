@@ -9,7 +9,7 @@ from sentry.testutils import TestCase, PermissionTestCase
 class RemoveProjectPermissionTest(PermissionTestCase):
     def setUp(self):
         super(RemoveProjectPermissionTest, self).setUp()
-        self.project = self.create_project(team=self.team)
+        self.project = self.create_project(teams=[self.team])
         self.path = reverse(
             'sentry-remove-project', args=[self.organization.slug, self.project.slug]
         )
@@ -30,7 +30,7 @@ class RemoveProjectTest(TestCase):
         self.owner = self.create_user(email='example@example.com', is_superuser=False)
         organization = self.create_organization(owner=self.owner)
         self.team = self.create_team(name='bar', organization=organization)
-        self.project = self.create_project(name='bar', team=self.team)
+        self.project = self.create_project(name='bar', teams=[self.team])
         self.path = reverse('sentry-remove-project', args=[organization.slug, self.project.slug])
 
     def test_requires_authentication(self):

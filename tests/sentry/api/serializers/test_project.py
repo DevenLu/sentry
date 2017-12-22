@@ -16,7 +16,7 @@ class ProjectSerializerTest(TestCase):
         user = self.create_user(username='foo')
         organization = self.create_organization(owner=user)
         team = self.create_team(organization=organization)
-        project = self.create_project(team=team, organization=organization, name='foo')
+        project = self.create_project(teams=[team], organization=organization, name='foo')
 
         result = serialize(project, user)
 
@@ -30,7 +30,7 @@ class ProjectWithTeamSerializerTest(TestCase):
         user = self.create_user(username='foo')
         organization = self.create_organization(owner=user)
         team = self.create_team(organization=organization)
-        project = self.create_project(team=team, organization=organization, name='foo')
+        project = self.create_project(teams=[team], organization=organization, name='foo')
 
         result = serialize(project, user, ProjectWithTeamSerializer())
 
@@ -50,7 +50,7 @@ class ProjectWithOrganizationSerializerTest(TestCase):
         user = self.create_user(username='foo')
         organization = self.create_organization(owner=user)
         team = self.create_team(organization=organization)
-        project = self.create_project(team=team, organization=organization, name='foo')
+        project = self.create_project(teams=[team], organization=organization, name='foo')
 
         result = serialize(project, user, ProjectWithOrganizationSerializer())
 
