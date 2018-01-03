@@ -187,8 +187,6 @@ class MailPlugin(NotificationPlugin):
         headers = {
             'X-Sentry-Logger': group.logger,
             'X-Sentry-Logger-Level': group.get_level_display(),
-            # TODO(jess): is this ok to just delete? or should we replace with org or something?
-            # 'X-Sentry-Team': project.team.slug,
             'X-Sentry-Project': project.slug,
             'X-Sentry-Reply-To': group_id_to_email(group.id),
         }
@@ -242,8 +240,6 @@ class MailPlugin(NotificationPlugin):
         }
 
         headers = {
-            # TODO(jess): is this ok to just delete? or should we replace with org or something?
-            # 'X-Sentry-Team': project.team.slug,
             'X-Sentry-Project': project.slug,
         }
 
