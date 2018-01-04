@@ -2,12 +2,11 @@ import {Redirect, Route, IndexRoute, IndexRedirect} from 'react-router';
 import React from 'react';
 
 import AccountAuthorizations from './views/accountAuthorizations';
+import AccountAvatar from './views/settings/account/avatar';
+import AccountEmails from './views/settings/account/accountEmails';
 import AccountLayout from './views/accountLayout';
 import AccountSettingsLayout from './views/settings/account/accountSettingsLayout';
-import AccountNotifications from './views/settings/account/accountNotifications';
 import AccountNotificationFineTuning from './views/settings/account/accountNotificationFineTuning';
-import AccountEmails from './views/settings/account/accountEmails';
-import AccountAvatar from './views/settings/account/avatar';
 
 import AdminBuffer from './views/adminBuffer';
 import AdminLayout from './views/adminLayout';
@@ -36,6 +35,7 @@ import GroupTags from './views/groupTags';
 import GroupUserReports from './views/groupUserReports';
 import HookStore from './stores/hookStore';
 import InviteMember from './views/inviteMember/inviteMember';
+import LazyLoad from './components/lazyLoad';
 import MyIssuesAssignedToMe from './views/myIssues/assignedToMe';
 import MyIssuesBookmarked from './views/myIssues/bookmarked';
 import MyIssuesViewed from './views/myIssues/viewed';
@@ -120,13 +120,19 @@ function appendTrailingSlash(nextState, replaceState) {
 const accountSettingsRoutes = [
   <IndexRedirect key="account-settings-index" to="notifications/" />,
   <Route key="notifications/" path="notifications/" name="Notifications">
-    <IndexRoute component={errorHandler(AccountNotifications)} />,
+    <IndexRoute
+      getComponent={() =>
+        import('./views/settings/account/accountNotifications').then(
+          module => module.default
+        )}
+      component={errorHandler(LazyLoad)}
+    />
     <Route
       key="project-alerts/"
       path="project-alerts/"
       name="Fine Tune Alerts"
       component={errorHandler(AccountNotificationFineTuning)}
-    />,
+    />
   </Route>,
   <Route
     key="emails/"
@@ -414,9 +420,11 @@ function routes() {
         component={errorHandler(SettingsWrapper)}
       >
         <IndexRoute component={errorHandler(SettingsIndex)} />
+
         <Route path="account/" name="Account" component={AccountSettingsLayout}>
           {accountSettingsRoutes}
         </Route>
+
         <Route path="organization/">
           <IndexRoute component={errorHandler(OrganizationPicker)} />
 
