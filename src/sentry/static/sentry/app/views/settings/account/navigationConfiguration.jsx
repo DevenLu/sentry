@@ -24,6 +24,10 @@ const accountNavigation = [
     name: t('API'),
     items: [
       {
+        path: `${pathPrefix}/api/auth-tokens/`,
+        title: t('Auth Tokens'),
+      },
+      {
         path: `${pathPrefix}/api/applications/`,
         title: t('Applications'),
       },
