@@ -439,7 +439,7 @@ function routes() {
           >
             <Route
               getComponent={() =>
-                import('./views/settings/account/accountSettingsLayout').then(
+                import('./views/settings/organization/organizationSettingsLayout').then(
                   getDefaultModule
                 )}
               component={errorHandler(LazyLoad)}
@@ -453,7 +453,7 @@ function routes() {
                 name="Project"
                 path=":projectId/"
                 getComponent={() =>
-                  import('./views/settings/account/accountSettingsLayout').then(
+                  import('./views/settings/project/projectSettingsLayout').then(
                     getDefaultModule
                   )}
                 component={errorHandler(LazyLoad)}
