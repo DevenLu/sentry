@@ -41,6 +41,24 @@ class LazyLoad extends React.Component {
     this.fetchComponent();
   }
 
+  componentWillReceiveProps(nextProps, nextState) {
+    // This is to handle the following case:
+    // <Route path="a/">
+    //   <Route path="b/" component={LazyLoad} getComponent={...} />
+    //   <Route path="c/" component={LazyLoad} getComponent={...} />
+    // </Route>
+    //
+    // `LazyLoad` will get not fully remount when we switch between `b` and `c`,
+    // instead will just re-render.  Refetch if locations are different
+    if (nextProps.location.pathname === this.props.location.pathname) return;
+
+    this.setState({
+      Component: null,
+    });
+
+    this.fetchComponent();
+  }
+
   getComponentGetter = () =>
     this.props.component || this.props.getComponent || this.props.route.getComponent;
 
