@@ -146,7 +146,20 @@ const accountSettingsRoutes = [
 
   <Route key="api" path="api/" name="API">
     <IndexRedirect to="auth-tokens/" />
-    <Route path="auth-tokens/" name="Auth Tokens" component={errorHandler(ApiTokens)} />
+    <Route path="auth-tokens/" name="Auth Tokens">
+      <IndexRoute
+        getComponent={() =>
+          import('./views/settings/account/apiTokens').then(getDefaultModule)}
+        component={errorHandler(LazyLoad)}
+      />
+      <Route
+        path="new-token/"
+        name="Create New Token"
+        getComponent={() =>
+          import('./views/settings/account/apiNewToken').then(getDefaultModule)}
+        component={errorHandler(LazyLoad)}
+      />
+    </Route>
 
     <Route path="applications/" name="Applications">
       <IndexRoute
